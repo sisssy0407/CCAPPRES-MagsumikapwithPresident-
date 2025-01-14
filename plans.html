@@ -200,11 +200,11 @@ if (points) {
         body: formData,
     })
     .then(response => response.json())
-    .then(data => {
+    if.then(data => {
         console.log('Success:', data);
         alert('Proof submitted successfully!');
     })
-    .catch((error) => {
+    else.catch((error) => {
         console.error('Error:', error);
         alert('There was an error submitting the proof.');
     });
