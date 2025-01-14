@@ -1,4 +1,3 @@
-plans.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -153,21 +152,18 @@ plans.html
   <button id="redeem-points-btn" onclick="redirectToScanner()">Redeem Points</button>
 
   <script>
-    // Get the total points from localStorage
-const points = localStorage.getItem('userPoints');
-
-// Display the points on the page
-if (points) {
-    document.getElementById('user-points').textContent = `Total Points: ${points}`;
-} else {
-    document.getElementById('user-points').textContent = 'No points received.';
-}
+    // Display points
+    const points = localStorage.getItem('userPoints');
+    if (points) {
+        document.getElementById('user-points').textContent = `Total Points: ${points}`;
+    } else {
+        document.getElementById('user-points').textContent = 'No points received.';
+    }
 
     // Handle checkbox selection (only one task can be checked at a time)
     const taskCheckboxes = document.querySelectorAll('input[type="checkbox"][name="Donate"]');
-
     taskCheckboxes.forEach((checkbox) => {
-        checkbox.addEventListener('change', (event) => {
+        checkbox.addEventListener('change', () => {
             taskCheckboxes.forEach((otherCheckbox) => {
                 if (otherCheckbox !== checkbox) {
                     otherCheckbox.checked = false;  // Uncheck other checkboxes
@@ -176,41 +172,49 @@ if (points) {
         });
     });
 
+    // Submit proof form
     document.getElementById('submit-proof-form-btn').addEventListener('click', () => {
-    const proofFile = document.getElementById('proof-file').files[0];
-    const gradeSection = document.getElementById('gradeSection').value;
-    const selectedTask = document.querySelector('input[type="checkbox"]:checked');
-    
-    if (!proofFile || !gradeSection || !selectedTask) {
-        alert('Please fill in all fields.');
-        return;    
-    }
+        const proofFile = document.getElementById('proof-file').files[0];
+        const gradeSection = document.getElementById('gradeSection').value;
+        const selectedTask = document.querySelector('input[type="checkbox"]:checked');
+        
+        if (!proofFile || !gradeSection || !selectedTask) {
+            alert('Please fill in all fields.');
+            return;    
+        }
 
-    const taskName = selectedTask.nextElementSibling.innerText;
-    const points = selectedTask.getAttribute('data-points');
+        const taskName = selectedTask.nextElementSibling.innerText;
+        const points = selectedTask.getAttribute('data-points');
+        const formData = new FormData();
+        formData.append('gradeSection', gradeSection);
+        formData.append('task', taskName);
+        formData.append('points', points);
+        formData.append('proofFile', proofFile);
 
-    const formData = new FormData();
-    formData.append('gradeSection', gradeSection);
-    formData.append('task', taskName);
-    formData.append('points', points);
-    formData.append('proofFile', proofFile);
-
-    fetch('https://sisssy0407.github.io/CCAPPRES-MagsumikapwithPresident-/user', {
-        method: 'POST',
-        body: formData,
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        alert('Proof submitted successfully!');
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        alert('There was an error submitting the proof.');
+        fetch('https://sisssy0407.github.io/CCAPPRES-MagsumikapwithPresident-/user', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Proof submitted successfully!');
+                document.getElementById('proof-form').reset();
+                if (data.updatedPoints) {
+                    localStorage.setItem('userPoints', data.updatedPoints);
+                    document.getElementById('user-points').textContent = `Total Points: ${data.updatedPoints}`;
+                }
+            } else {
+                alert('Submission failed. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred during submission.');
+        });
     });
-});
 
-    // Function to handle redirect to Scanner page
+    // Handle redirect to Scanner page
     function redirectToScanner() {
         window.location.href = 'scanner.html';
     }
@@ -222,30 +226,22 @@ if (points) {
         window.location.href = 'index.html'; // Redirect to login page
     });
 
-     // Retrieve the username and email from localStorage
-     const username = localStorage.getItem('username');
-        const email = localStorage.getItem('email');
+    // Retrieve username and email from localStorage
+    const username = localStorage.getItem('username');
+    const email = localStorage.getItem('email');
+    if (username) {
+        document.getElementById('username').textContent = username;
+    } else {
+        document.getElementById('username').textContent = 'Guest';
+    }
 
-        // Display the username and email
-        if (username) {
-            document.getElementById('username').textContent = username;
-        } else {
-            document.getElementById('username').textContent = 'Guest';
-        }
-
-        if (email) {
-            document.getElementById('email').textContent = email;
-        } else {
-            document.getElementById('email').textContent = 'No email available';
-        }
+    if (email) {
+        document.getElementById('email').textContent = email;
+    } else {
+        document.getElementById('email').textContent = 'No email available';
+    }
   </script>
-
-
 
 
 </body>
 </html>
-
-
-
-
