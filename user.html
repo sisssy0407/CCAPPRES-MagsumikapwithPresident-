@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proof Submissions</title>
+    <link rel="stylesheet" href="mwp.css">
+    <style>
+        .submission-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .submission-table th, .submission-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .submission-table th {
+            background-color: #f4f4f4;
+        }
+        .submission-row img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+        .submission-row button {
+            margin-left: 5px;
+        }
+        .points-input {
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Proof Submissions</h1>
+
+    <!-- Clear Submissions Button -->
+    <button id="clear-button">Clear Submissions</button>
+
+    <!-- Table for Submissions -->
+    <table class="submission-table" id="submission-table">
+        <thead>
+            <tr>
+                <th>Grade & Section</th>
+                <th>Date</th>
+                <th>Task</th>
+                <th>Points</th>
+                <th>Proof</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="submission-container"></tbody>
+    </table>
+
+    <script>
+        // Function to load stored proof submissions
+        function loadSubmissions() {
+            const submissions = JSON.parse(localStorage.getItem('proofSubmissionHistory')) || [];
+            const submissionContainer = document.getElementById('submission-container');
+            submissionContainer.innerHTML = ''; // Clear previous entries
+
+            submissions.forEach((submission, index) => {
+                const submissionRow = document.createElement('tr');
+
+                // Grade and Section
+                const gradeSectionCell = document.createElement('td');
+                gradeSectionCell.textContent = submission.gradeSection;
+                submissionRow.appendChild(gradeSectionCell);
+
+                // Date of Submission
+                const dateCell = document.createElement('td');
+                dateCell.textContent = submission.date;
+                submissionRow.appendChild(dateCell);
+
+                // Task
+                const taskCell = document.createElement('td');
+                taskCell.textContent = submission.task;
+                submissionRow.appendChild(taskCell);
+
+                // Points Cell with input for points
+                const pointsCell = document.createElement('td');
+                const pointsInput = document.createElement('input');
+                pointsInput.type = 'number';
+                pointsInput.className = 'points-input';
+                pointsInput.value = submission.points || 0;  // Default to 0 if no points
+                pointsCell.appendChild(pointsInput);
+
+                // Add Points Button
+                const addPointsButton = document.createElement('button');
+                addPointsButton.textContent = 'Add Points';
+                addPointsButton.addEventListener('click', () => {
+                    const points = parseInt(pointsInput.value);
+                    if (points >= 0) {
+                        submission.points = points;
+                        submission.status = 'Verify'; // Set status to Verify after adding points
+                        localStorage.setItem('proofSubmissionHistory', JSON.stringify(submissions));
+                        alert('Points updated and submission verified successfully!');
+                        statusCell.textContent = 'Verify'; // Update status cell in the table
+                    } else {
+                        alert('Please enter valid points.');
+                    }
+                });
+                pointsCell.appendChild(addPointsButton);
+                submissionRow.appendChild(pointsCell);
+
+                // Proof Image with View button
+                const proofCell = document.createElement('td');
+                const viewProofButton = document.createElement('button');
+                viewProofButton.textContent = 'View Proof';
+                viewProofButton.addEventListener('click', () => {
+                    window.open(submission.proofFile, '_blank');
+                });
+                proofCell.appendChild(viewProofButton);
+                submissionRow.appendChild(proofCell);
+
+                // Status Cell
+                const statusCell = document.createElement('td');
+                submission.status = submission.status || 'Not Verify'; // Default to Not Verify if no status
+                statusCell.textContent = submission.status;
+                submissionRow.appendChild(statusCell);
+
+                // Action Dropdown for Verify and Not Verify
+                const actionCell = document.createElement('td');
+                const actionSelect = document.createElement('select');
+                const verifyOption = document.createElement('option');
+                verifyOption.value = 'verify';
+                verifyOption.textContent = 'Verify';
+                const notVerifyOption = document.createElement('option');
+                notVerifyOption.value = 'notVerify';
+                notVerifyOption.textContent = 'Not Verify';
+                actionSelect.appendChild(verifyOption);
+                actionSelect.appendChild(notVerifyOption);
+
+                // Handle action selection
+                actionSelect.addEventListener('change', () => {
+                    const action = actionSelect.value;
+                    if (action === 'verify') {
+                        alert('Please use the "Add Points" button to verify the submission.');
+                        actionSelect.value = 'notVerify'; // Revert to Not Verify if trying to verify directly
+                    }
+                });
+
+                actionCell.appendChild(actionSelect);
+                submissionRow.appendChild(actionCell);
+
+                // Append row to table
+                submissionContainer.appendChild(submissionRow);
+            });
+        }
+
+        // Clear submissions function
+        document.getElementById('clear-button').addEventListener('click', () => {
+            if (confirm('Are you sure you want to clear all submissions?')) {
+                localStorage.removeItem('proofSubmissionHistory');
+                loadSubmissions(); // Reload table after clearing
+                alert('All submissions have been cleared.');
+            }
+        });
+
+        // Call the function to load submissions when the page is loaded
+        window.onload = loadSubmissions;
+    </script>
+</body>
+</html>
