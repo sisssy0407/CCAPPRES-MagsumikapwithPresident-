@@ -1,0 +1,251 @@
+plans.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Collective Action Digital Point System</title>
+    <link rel="stylesheet" href="mwp.css">
+</head>
+<body>
+  
+  <!-- Menu Button and Sidebar -->
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Clients</a>
+    <a href="#">Contact</a>
+    <a href="#" id="logout-btn">Logout</a>
+  </div>
+  
+  <!-- User Section -->
+  <section id="user-info">
+    <h2>Welcome, <span id="username"></span>!</h2>
+    <p>Your email: <span id="email"></span></p>
+</section>
+
+  <!-- Header Section with Image and Title -->
+  <h1>
+    <div class="container">
+      <div class="image-div1">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9vC7UYXRR60aVJ3ha9-A6tPVIylSYhxzQfg&s" alt="" style="width:150px;">
+      </div>
+      <div class="DPS">Classroom Collective Action Point-Performance and Reward System</div>
+    </div>
+  </h1>
+
+  <!-- Student Dashboard Section -->
+  <section id="student-dashboard">
+    <h1>Points Display</h1>
+    <div id="points-display">
+        <span id="user-points"></span>
+    </div>
+    <button id="submit-proof-btn">Submit Proof</button>
+    <button id="view-transactions-btn">View Transactions</button>
+  </section>
+
+  <!-- Task Selection Section -->
+  <section id="task">
+    <h2>SPECIFIC TASKS:</h2>
+    <form action="/action_page.php">
+      <input type="checkbox" id="Donate1" name="Donate" value="1st data-points="100">
+      <label for="Donate"> Honesto = 100 pts</label><br><br>
+
+      <input type="checkbox" id="Donate2" name="Donate" value="2nd" data-points="100">
+      <label for="Donate"> Report Bullying = 100 pts </label><br><br>
+
+      <input type="checkbox" id="Donate3" name="Donate" value="3rd" data-points="100">
+      <label for="Donate"> Repair of School Materials = 100 pts</label><br><br>
+
+      <input type="checkbox" id="Donate4" name="Donate" value="4th" data-points="100">
+      <label for="Donate"> Flag Raising Attendance (100%) = 100 pts</label><br><br>
+
+      <input type="checkbox" id="Donate5" name="Donate" value="5th" data-points="75">
+      <label for="Donate"> Flag Raising Attendance (75%) = 75 pts</label><br><br>
+
+      <input type="checkbox" id="Donate6" name="Donate" value="6th" data-points="50">
+      <label for="Donate"> Flag Raising Attendance (50%) = 50 pts</label><br><br>
+
+      <input type="checkbox" id="Donate7" name="Donate" value="7th" data-points="25">
+      <label for="Donate"> Flag Raising Attendance (25%) = 25 pts</label><br><br>
+      
+      <input type="checkbox" id="Donate8" name="Donate" value="8th" data-points="100">
+      <label for="Donate"> Regularly Cleaning Classroom (Weekly Basis) = 100 pts</label><br><br>
+      
+      <input type="checkbox" id="Donate9" name="Donate" value="9th" data-points="100">
+      <label for="Donate"> Regularly Cleaning Bathroom (Weekly Basis) = 100 pts</label><br><br>
+
+      <input type="checkbox" id="Donate10" name="Donate" value="10th" data-points="100">
+      <label for="Donate"> School Clean p Drive = 100 pts</label><br><br>
+
+      <input type="checkbox" id="Donate11" name="Donate" value="11th" data-points="75">
+      <label for="Donate"> Segregation of Trash = 75 pts</label><br><br>
+      
+      <input type="checkbox" id="Donate12" name="Donate" value="12th" data-points="75">
+      <label for="Donate"> Extra Curricular Activity Participation = 75 pts</label><br><br>
+
+      <input type="checkbox" id="Donate13" name="Donate" value="13th" data-points="100">
+      <label for="Donate"> Donation (100 pesos and above) = 100 pts </label><br><br>
+      
+      <input type="checkbox" id="Donate14" name="Donate" value="14th" data-points="75">
+      <label for="Donate"> Donation (51-100 pesos) = 75 pts </label><br><br>
+
+      <input type="checkbox" id="Donate15" name="Donate" value="15th" data-points="50">
+      <label for="Donate"> Donation (26-50 pesos) = 50 pts </label><br><br>
+
+      <input type="checkbox" id="Donate16" name="Donate" value="16th" data-points="25">
+      <label for="Donate"> Donation (10-25 pesos) = 25 pts </label><br><br>
+    
+      <input type="checkbox" id="Donate17" name="Donate" value="17th" data-points="100">
+      <label for="Donate"> Parents Meeting Attendance(Majority) = 100 pts </label><br><br>
+
+      <input type="checkbox" id="Donate18" name="Donate" value="18th" data-points="75">
+      <label for="Donate"> Parents Meeting Attendance(75%) = 75 pts </label><br><br>
+
+      <input type="checkbox" id="Donate19" name="Donate" value="19th" data-points="50">
+      <label for="Donate"> Parents Meeting Attendance(50%) = 50 pts </label><br><br>
+
+      <input type="checkbox" id="Donate20" name="Donate" value="20th" data-points="25">
+      <label for="Donate"> Parents Meeting Attendance(25%) = 25 pts </label><br><br>
+    </form>
+  </section>
+
+  <!-- Proof Submission Section -->
+  <section id="proof-submission">
+    <h2>Submit Proof</h2>
+    <form id="proof-form">
+      <div><input type="file" id="proof-file" accept=".pdf, .jpg, .png"></div>
+      <div><textarea id="gradeSection" placeholder="Grade and Section"></textarea></div>
+      <div><button id="submit-proof-form-btn" type="button">Submit</button></div>
+    </form>
+  </section>
+
+  <!-- Reward Selection Section -->
+  <select id="reward-select" multiple>
+    <option value="">Select One reward for each Category</option>
+
+    <!-- School Supplies -->
+    <optgroup label="School Supplies">
+      <option value="school-supplies" data-points="1000">Colored Paper (1 Rim)</option>
+      <option value="school-supplies" data-points="1000">Folder Long (5 pcs)</option>
+      <option value="school-supplies" data-points="1000">Folder Short (5 pcs)</option>
+      <option value="school-supplies" data-points="1000">Ballpens (10 pcs)</option>
+      <option value="school-supplies" data-points="1000">Pencil & Eraser (10 pcs)</option>
+      <option value="school-supplies" data-points="1000">Yellow Pad (1 Whole)</option>
+      <option value="school-supplies" data-points="1000">Chalk & Eraser</option>
+      <option value="school-supplies" data-points="1000">Marker</option>
+      <option value="school-supplies" data-points="1000">Ruler</option>
+      <option value="school-supplies" data-points="1000">Bond Paper (1 Rim)</option>
+    </optgroup>
+
+    <!-- Cleaning Materials -->
+    <optgroup label="Cleaning Materials">
+      <option value="cleaning-materials" data-points="1000">1 Pack of Garbage Bags</option>
+      <option value="cleaning-materials" data-points="1000">Floor Mop</option>
+      <option value="cleaning-materials" data-points="1000">Broom</option>
+      <option value="cleaning-materials" data-points="1000">Trash Can</option>
+      <option value="cleaning-materials" data-points="1000">Cleaning Towel</option>
+      <option value="cleaning-materials" data-points="1000">Dust Pan</option>
+    </optgroup>
+  </select>
+
+  <button id="redeem-points-btn" onclick="redirectToScanner()">Redeem Points</button>
+
+  <script>
+    // Get the total points from localStorage
+const points = localStorage.getItem('userPoints');
+
+// Display the points on the page
+if (points) {
+    document.getElementById('user-points').textContent = `Total Points: ${points}`;
+} else {
+    document.getElementById('user-points').textContent = 'No points received.';
+}
+
+    // Handle checkbox selection (only one task can be checked at a time)
+    const taskCheckboxes = document.querySelectorAll('input[type="checkbox"][name="Donate"]');
+
+    taskCheckboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', (event) => {
+            taskCheckboxes.forEach((otherCheckbox) => {
+                if (otherCheckbox !== checkbox) {
+                    otherCheckbox.checked = false;  // Uncheck other checkboxes
+                }
+            });
+        });
+    });
+
+    // Handle proof submission
+    document.getElementById('submit-proof-form-btn').addEventListener('click', () => {
+        const proofFile = document.getElementById('proof-file').files[0];
+        const gradeSection = document.getElementById('gradeSection').value;
+        const selectedTask = document.querySelector('input[type="checkbox"]:checked');
+        
+        if (!proofFile || !gradeSection || !selectedTask) {
+            alert('Please fill in all fields.');
+            return;	
+        }
+
+        const taskName = selectedTask.nextElementSibling.innerText;
+        const points = selectedTask.getAttribute('data-points');
+
+        // Prepare the submission data
+        const submissionData = {
+            gradeSection: gradeSection,
+            date: new Date().toLocaleDateString(),
+            task: taskName,
+            points: points,
+            proofFile: URL.createObjectURL(proofFile), // Create a URL for the image
+        };
+
+        // Store the submission in localStorage
+        let storedSubmissions = JSON.parse(localStorage.getItem('proofSubmissionHistory')) || [];
+        storedSubmissions.push(submissionData);
+        localStorage.setItem('proofSubmissionHistory', JSON.stringify(storedSubmissions));
+
+		 
+
+        alert('Proof submitted successfully!');
+        document.getElementById('proof-form').reset(); // Reset the form after submission
+    });
+
+    // Function to handle redirect to Scanner page
+    function redirectToScanner() {
+        window.location.href = 'scanner.html';
+    }
+
+    // Handle logout functionality
+    document.getElementById('logout-btn').addEventListener('click', () => {
+        localStorage.clear();
+        alert('Logged out successfully!');
+        window.location.href = 'index.html'; // Redirect to login page
+    });
+
+     // Retrieve the username and email from localStorage
+     const username = localStorage.getItem('username');
+        const email = localStorage.getItem('email');
+
+        // Display the username and email
+        if (username) {
+            document.getElementById('username').textContent = username;
+        } else {
+            document.getElementById('username').textContent = 'Guest';
+        }
+
+        if (email) {
+            document.getElementById('email').textContent = email;
+        } else {
+            document.getElementById('email').textContent = 'No email available';
+        }
+  </script>
+
+
+
+
+</body>
+</html>
+
+
+
+
