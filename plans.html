@@ -176,39 +176,39 @@ if (points) {
         });
     });
 
-    // Handle proof submission
     document.getElementById('submit-proof-form-btn').addEventListener('click', () => {
-        const proofFile = document.getElementById('proof-file').files[0];
-        const gradeSection = document.getElementById('gradeSection').value;
-        const selectedTask = document.querySelector('input[type="checkbox"]:checked');
-        
-        if (!proofFile || !gradeSection || !selectedTask) {
-            alert('Please fill in all fields.');
-            return;	
-        }
+    const proofFile = document.getElementById('proof-file').files[0];
+    const gradeSection = document.getElementById('gradeSection').value;
+    const selectedTask = document.querySelector('input[type="checkbox"]:checked');
+    
+    if (!proofFile || !gradeSection || !selectedTask) {
+        alert('Please fill in all fields.');
+        return;    
+    }
 
-        const taskName = selectedTask.nextElementSibling.innerText;
-        const points = selectedTask.getAttribute('data-points');
+    const taskName = selectedTask.nextElementSibling.innerText;
+    const points = selectedTask.getAttribute('data-points');
 
-        // Prepare the submission data
-        const submissionData = {
-            gradeSection: gradeSection,
-            date: new Date().toLocaleDateString(),
-            task: taskName,
-            points: points,
-            proofFile: URL.createObjectURL(proofFile), // Create a URL for the image
-        };
+    const formData = new FormData();
+    formData.append('gradeSection', gradeSection);
+    formData.append('task', taskName);
+    formData.append('points', points);
+    formData.append('proofFile', proofFile);
 
-        // Store the submission in localStorage
-        let storedSubmissions = JSON.parse(localStorage.getItem('proofSubmissionHistory')) || [];
-        storedSubmissions.push(submissionData);
-        localStorage.setItem('proofSubmissionHistory', JSON.stringify(storedSubmissions));
-
-		 
-
+    fetch('https://sisssy0407.github.io/CCAPPRES-MagsumikapwithPresident-/user', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
         alert('Proof submitted successfully!');
-        document.getElementById('proof-form').reset(); // Reset the form after submission
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('There was an error submitting the proof.');
     });
+});
 
     // Function to handle redirect to Scanner page
     function redirectToScanner() {
@@ -239,6 +239,10 @@ if (points) {
             document.getElementById('email').textContent = 'No email available';
         }
   </script>
+
+
+
+
 </body>
 </html>
 
