@@ -34,6 +34,12 @@
 <body>
     <h1>Proof Submissions</h1>
 
+    <!-- Display logged-in user details -->
+    <div id="user-info">
+        <p><strong>Username:</strong> <span id="username"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+    </div>
+
     <!-- Clear Submissions Button -->
     <button id="clear-button">Clear Submissions</button>
 
@@ -54,6 +60,10 @@
     </table>
 
     <script>
+        // Display stored username and email
+        document.getElementById('username').textContent = localStorage.getItem('username');
+        document.getElementById('email').textContent = localStorage.getItem('email');
+
         // Function to load stored proof submissions
         function loadSubmissions() {
             const submissions = JSON.parse(localStorage.getItem('proofSubmissionHistory')) || [];
