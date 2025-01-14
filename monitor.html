@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor Points by Section</title>
+    <link rel="stylesheet" href="mwp.css">
+    <style>
+        .monitor-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .monitor-table th, .monitor-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .monitor-table th {
+            background-color: #f4f4f4;
+        }
+        .redeem-button {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .redeem-button:hover {
+            background-color: #45a049;
+        }
+        .redeem-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .clear-button, .clear-all-button {
+            padding: 5px 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .clear-button:hover, .clear-all-button:hover {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+<body>
+    <h1>Points Monitor by Section</h1>
+
+    <!-- Clear Section Points -->
+    <label for="section-select">Select Section to Clear Points:</label>
+    <select id="section-select">
+        <option value="">--Select Section--</option>
+    </select>
+    <button class="clear-button" id="clear-button" disabled>Clear Points</button>
+
+    <!-- Clear All Sections -->
+    <button class="clear-all-button" id="clear-all-button">Clear All Sections</button>
+
+    <table class="monitor-table" id="monitor-table">
+        <thead>
+            <tr>
+                <th>Grade & Section</th>
+                <th>Total Points</th>
+                <th>Redeem</th>
+            </tr>
+        </thead>
+        <tbody id="monitor-container"></tbody>
+    </table>
+
+    <script>
+        // Function to load points for each section
+        function loadSectionPoints() {
+            const submissions = JSON.parse(localStorage.getItem('proofSubmissionHistory')) || [];
+            const sectionPoints = {};
+            const sectionSelect = document.getElementById('section-select');
+
+            // Calculate total points per section
+            submissions.forEach(submission => {
+                if (sectionPoints[submission.gradeSection]) {
+                    sectionPoints[submission.gradeSection] += parseInt(submission.points || 0);
+                } else {
+                    sectionPoints[submission.gradeSection] = parseInt(submission.points || 0);
+                }
+            });
+
+            const monitorContainer = document.getElementById('monitor-container');
+            monitorContainer.innerHTML = ''; // Clear previous entries
+            sectionSelect.innerHTML = '<option value="">--Select Section--</option>'; // Reset select options
+
+            // Create table rows for each section
+            for (const section in sectionPoints) {
+                const sectionRow = document.createElement('tr');
+
+                const sectionCell = document.createElement('td');
+                sectionCell.textContent = section;
+                sectionRow.appendChild(sectionCell);
+
+                const pointsCell = document.createElement('td');
+                pointsCell.textContent = sectionPoints[section];
+                sectionRow.appendChild(pointsCell);
+
+                // Create redeem button
+                const redeemButtonCell = document.createElement('td');
+                const redeemButton = document.createElement('button');
+                redeemButton.textContent = 'Redeem';
+                redeemButton.classList.add('redeem-button');
+
+                // Disable redeem button if points are less than 1000
+                if (sectionPoints[section] < 1000) {
+                    redeemButton.disabled = true;
+                } else {
+                    redeemButton.addEventListener('click', () => {
+                        // Subtract 1000 points when redeemed
+                        sectionPoints[section] -= 1000;
+                        pointsCell.textContent = sectionPoints[section];
+
+                        // Update the submission history in localStorage
+                        const updatedSubmissions = submissions.map(submission => {
+                            if (submission.gradeSection === section) {
+                                submission.points = sectionPoints[section];
+                            }
+                            return submission;
+                        });
+
+                        localStorage.setItem('proofSubmissionHistory', JSON.stringify(updatedSubmissions));
+                    });
+                }
+
+                redeemButtonCell.appendChild(redeemButton);
+                sectionRow.appendChild(redeemButtonCell);
+
+                monitorContainer.appendChild(sectionRow);
+
+                // Add section option to select dropdown
+                const option = document.createElement('option');
+                option.value = section;
+                option.textContent = section;
+                sectionSelect.appendChild(option);
+            }
+
+            // Enable/Disable the clear button based on selection
+            sectionSelect.addEventListener('change', function () {
+                const selectedSection = sectionSelect.value;
+                document.getElementById('clear-button').disabled = !selectedSection;
+            });
+        }
+
+        // Function to clear points for a specific section
+        function clearSectionPoints() {
+            const sectionSelect = document.getElementById('section-select');
+            const selectedSection = sectionSelect.value;
+            const submissions = JSON.parse(localStorage.getItem('proofSubmissionHistory')) || [];
+
+            if (selectedSection) {
+                // Update the points for the selected section
+                const updatedSubmissions = submissions.map(submission => {
+                    if (submission.gradeSection === selectedSection) {
+                        submission.points = 0; // Reset points to 0
+                    }
+                    return submission;
+                });
+
+                // Save updated data back to localStorage
+                localStorage.setItem('proofSubmissionHistory', JSON.stringify(updatedSubmissions));
+
+                // Reload the points display
+                loadSectionPoints();
+            }
+        }
+
+        // Function to clear all points
+        function clearAllPoints() {
+            const submissions = JSON.parse(localStorage.getItem('proofSubmissionHistory')) || [];
+
+            // Reset points for all sections
+            const updatedSubmissions = submissions.map(submission => {
+                submission.points = 0; // Reset points to 0 for all
+                return submission;
+            });
+
+            // Save updated data back to localStorage
+            localStorage.setItem('proofSubmissionHistory', JSON.stringify(updatedSubmissions));
+
+            // Reload the points display
+            loadSectionPoints();
+        }
+
+        // Event listener for clear section button
+        document.getElementById('clear-button').addEventListener('click', clearSectionPoints);
+
+        // Event listener for clear all button
+        document.getElementById('clear-all-button').addEventListener('click', clearAllPoints);
+
+        // Call the function to load section points when the page is loaded
+        window.onload = loadSectionPoints;
+    </script>
+</body>
+</html>
