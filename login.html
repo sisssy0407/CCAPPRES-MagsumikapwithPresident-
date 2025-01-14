@@ -33,6 +33,14 @@
                 <label for="section">Section:</label>
                 <input type="text" id="section" name="section">
             </div>
+            <!-- Add a dropdown for role selection (President or Monitor) -->
+            <div>
+                <label for="role">Role:</label>
+                <select id="role" name="role" required>
+                    <option value="president">President</option>
+                    <option value="monitor">Monitor</option>
+                </select>
+            </div>
 
             <button type="submit" class="button">Log In</button>
         </form>
@@ -43,6 +51,21 @@
     </footer>
 
     <script>
+        // Function to toggle the enabled/disabled state of grade and section fields based on the selected role
+        document.getElementById('role').addEventListener('change', function() {
+            const gradeField = document.getElementById('grade');
+            const sectionField = document.getElementById('section');
+            const role = this.value;
+
+            if (role === 'monitor') {
+                gradeField.disabled = true; // Disable grade field
+                sectionField.disabled = true; // Disable section field
+            } else {
+                gradeField.disabled = false; // Enable grade field
+                sectionField.disabled = false; // Enable section field
+            }
+        });
+
         // Listen for form submission
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent form submission to allow JavaScript handling
@@ -55,21 +78,30 @@
             localStorage.setItem('username', username);
             localStorage.setItem('email', email);
 
-            // Get grade and section
+            // Get grade, section, and role
             const grade = document.getElementById('grade').value;
             const section = document.getElementById('section').value;
+            const role = document.getElementById('role').value;
 
-            if (!grade || !section) {
-                alert("Please enter both Grade and Section.");
-                return;
+            if (role === 'monitor') {
+                // For Monitor role, no need for grade and section validation
+                localStorage.setItem('role', role);
+                window.location.href = 'user.html'; // Redirect to user page
+            } else {
+                // If President, ensure grade and section are filled
+                if (!grade || !section) {
+                    alert("Please enter both Grade and Section.");
+                    return;
+                }
+
+                // Save grade, section, and role in localStorage
+                localStorage.setItem('grade', grade);
+                localStorage.setItem('section', section);
+                localStorage.setItem('role', role);
+
+                // Redirect to plans page
+                window.location.href = 'plans.html';
             }
-
-            // Save grade and section in localStorage
-            localStorage.setItem('grade', grade);
-            localStorage.setItem('section', section);
-
-            // Redirect to the plans page
-            window.location.href = 'plans.html';
         });
     </script>
 </body>
