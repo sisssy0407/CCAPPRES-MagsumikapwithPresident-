@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monitor Points by Section</title>
-    <link rel="stylesheet" href="mwp.css">
     <style>
         .monitor-table {
             width: 100%;
@@ -33,196 +32,245 @@
             background-color: #ccc;
             cursor: not-allowed;
         }
-        .clear-button, .clear-all-button {
-            padding: 5px 10px;
-            background-color: #f44336;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-        .clear-button:hover, .clear-all-button:hover {
-            background-color: #e53935;
+        .input-points {
+            width: 60px;
+            padding: 5px;
+            margin-right: 10px;
         }
     </style>
 </head>
 <body>
     <h1>Points Monitor by Section</h1>
-            </tr>
-           
-        </thead>
-        <tbody id="monitor-container"></tbody>
-        
-    </table>
     <table class="monitor-table">
         <thead>
             <tr>
                 <th>Grade</th>
                 <th>Section</th>
                 <th>Points</th>
+                <th>Redeem</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="monitor-container">
+            <!-- Grade 11 -->
             <tr>
                 <td>GRADE 11</td>
                 <td>ABM</td>
-                <td>= 975</td>
+                <td id="points-11-abm">975</td>
+                <td>
+                    <input type="number" class="input-points" id="input-11-abm" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('11-abm')">Redeem</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>HUMMS A</td>
-                <td>=</td>
+                <td id="points-11-humms-a">100</td>
+                <td>
+                    <input type="number" class="input-points" id="input-11-humms-a" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('11-humms-a')">Redeem</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>HUMMS B</td>
-                <td>= 300</td>
+                <td id="points-11-humms-b">700</td>
+                <td>
+                    <input type="number" class="input-points" id="input-11-humms-b" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('11-humms-b')">Redeem</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>HUMMS C</td>
-                <td>=</td>
+                <td id="points-11-humms-c">400</td>
+                <td>
+                    <input type="number" class="input-points" id="input-11-humms-c" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('11-humms-c')">Redeem</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>COMBO 1</td>
-                <td>= 225</td>
+                <td id="points-11-combo1">850</td>
+                <td>
+                    <input type="number" class="input-points" id="input-11-combo1" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('11-combo1')">Redeem</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>COMBO 2A</td>
-                <td>= 350</td>
+                <td id="points-11-combo2a">560</td>
+                <td>
+                    <input type="number" class="input-points" id="input-11-combo2a" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('11-combo2a')">Redeem</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>COMBO 2B</td>
-                <td>= 400</td>
+                <td id="points-11-combo2b">630</td>
+                <td>
+                    <input type="number" class="input-points" id="input-11-combo2b" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('11-combo2b')">Redeem</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>ICT A</td>
-                <td>= 350</td>
+                <td id="points-11-ict-a">920</td>
+                <td>
+                    <input type="number" class="input-points" id="input-11-ict-a" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('11-ict-a')">Redeem</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>ICT B</td>
-                <td>= 400</td>
+                <td id="points-11-ict-b">500</td>
+                <td>
+                    <input type="number" class="input-points" id="input-11-ict-b" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('11-ict-b')">Redeem</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>EIM</td>
-                <td>=</td>
+                <td id="points-11-eim">300</td>
+                <td>
+                    <input type="number" class="input-points" id="input-11-eim" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('11-eim')">Redeem</button>
+                </td>
             </tr>
+            
+            <!-- Grade 12 -->
             <tr>
                 <td>GRADE 12</td>
                 <td>ABM</td>
-                <td>= 300</td>
+                <td id="points-12-abm">1200</td>
+                <td>
+                    <input type="number" class="input-points" id="input-12-abm" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('12-abm')">Redeem</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>HUMMS A</td>
-                <td>= 275</td>
+                <td id="points-12-humms-a">800</td>
+                <td>
+                    <input type="number" class="input-points" id="input-12-humms-a" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('12-humms-a')">Redeem</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>HUMMS B</td>
-                <td>=</td>
+                <td id="points-12-humms-b">950</td>
+                <td>
+                    <input type="number" class="input-points" id="input-12-humms-b" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('12-humms-b')">Redeem</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>HUMMS C</td>
-                <td>= 300</td>
+                <td id="points-12-humms-c">950</td>
+                <td>
+                    <input type="number" class="input-points" id="input-12-humms-c" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('12-humms-c')">Redeem</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>COMBO 1</td>
-                <td>=</td>
+                <td id="points-12-combo1">1000</td>
+                <td>
+                    <input type="number" class="input-points" id="input-12-combo1" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('12-combo1')">Redeem</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>COMBO 2A</td>
-                <td>=</td>
+                <td id="points-12-combo2a">900</td>
+                <td>
+                    <input type="number" class="input-points" id="input-12-combo2a" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('12-combo2a')">Redeem</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>COMBO 2B</td>
-                <td>=</td>
+                <td id="points-12-combo2b">750</td>
+                <td>
+                    <input type="number" class="input-points" id="input-12-combo2b" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('12-combo2b')">Redeem</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>ICT A</td>
-                <td>=</td>
+                <td id="points-12-ict-a">1100</td>
+                <td>
+                    <input type="number" class="input-points" id="input-12-ict-a" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('12-ict-a')">Redeem</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>ICT B</td>
-                <td>=</td>
+                <td id="points-12-ict-b">800</td>
+                <td>
+                    <input type="number" class="input-points" id="input-12-ict-b" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('12-ict-b')">Redeem</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>EIM</td>
-                <td>=</td>
+                <td id="points-12-eim">600</td>
+                <td>
+                    <input type="number" class="input-points" id="input-12-eim" min="1">
+                    <button class="redeem-button" onclick="redeemPoints('12-eim')">Redeem</button>
+                </td>
             </tr>
         </tbody>
     </table>
-    <script>
-        function loadSectionPoints() {
-            const submissions = JSON.parse(localStorage.getItem('proofSubmissionHistory')) || [];
-            const sectionPoints = {};
 
-            submissions.forEach(submission => {
-                if (sectionPoints[submission.gradeSection]) {
-                    sectionPoints[submission.gradeSection] += parseInt(submission.points || 0);
-                } else {
-                    sectionPoints[submission.gradeSection] = parseInt(submission.points || 0);
+    <script>
+        // Load points from local storage
+        window.onload = () => {
+            const sections = [
+                '11-abm', '11-humms-a', '11-humms-b', '11-humms-c', '11-combo1', '11-combo2a', '11-combo2b', '11-ict-a', '11-ict-b', '11-eim',
+                '12-abm', '12-humms-a', '12-humms-b', '12-humms-c', '12-combo1', '12-combo2a', '12-combo2b', '12-ict-a', '12-ict-b', '12-eim'
+            ];
+
+            sections.forEach(section => {
+                const storedPoints = localStorage.getItem(`points-${section}`);
+                if (storedPoints) {
+                    document.getElementById(`points-${section}`).textContent = storedPoints;
                 }
             });
+        };
 
-            const monitorContainer = document.getElementById('monitor-container');
-            monitorContainer.innerHTML = '';
-
-            for (const section in sectionPoints) {
-                const sectionRow = document.createElement('tr');
-
-                const sectionCell = document.createElement('td');
-                sectionCell.textContent = section;
-                sectionRow.appendChild(sectionCell);
-
-                const pointsCell = document.createElement('td');
-                pointsCell.textContent = sectionPoints[section];
-                sectionRow.appendChild(pointsCell);
-
-                const redeemButtonCell = document.createElement('td');
-                const redeemButton = document.createElement('button');
-                redeemButton.textContent = 'Redeem';
-                redeemButton.classList.add('redeem-button');
-
-                if (sectionPoints[section] < 1000) {
-                    redeemButton.disabled = true;
-                } else {
-                    redeemButton.addEventListener('click', () => {
-                        sectionPoints[section] -= 1000;
-                        pointsCell.textContent = sectionPoints[section];
-
-                        const updatedSubmissions = submissions.map(submission => {
-                            if (submission.gradeSection === section) {
-                                submission.points = sectionPoints[section];
-                            }
-                            return submission;
-                        });
-
-                        localStorage.setItem('proofSubmissionHistory', JSON.stringify(updatedSubmissions));
-                    });
-                }
-
-                redeemButtonCell.appendChild(redeemButton);
-                sectionRow.appendChild(redeemButtonCell);
-
-                monitorContainer.appendChild(sectionRow);
+        // Redeem points function
+        const redeemPoints = (section) => {
+            const pointsElement = document.getElementById(`points-${section}`);
+            let points = parseInt(pointsElement.textContent);
+            const pointsToRedeem = parseInt(document.getElementById(`input-${section}`).value);
+            
+            if (pointsToRedeem && points >= pointsToRedeem) {
+                points -= pointsToRedeem;
+                pointsElement.textContent = points;
+                // Save updated points to local storage
+                localStorage.setItem(`points-${section}`, points);
+                
+                // Redirect to redeem.html after redeeming
+                window.location.href = "redeem.html";  // Redirects to redeem.html
+            } else {
+                alert("Not enough points or invalid input.");
             }
-        }
-
-        window.onload = loadSectionPoints;
+        };
     </script>
 </body>
 </html>
