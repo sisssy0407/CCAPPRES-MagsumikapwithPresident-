@@ -110,7 +110,7 @@
   <div id="popupBox" class="popup">
     <div class="popup-content">
       <h2>Congratulations, President!</h2>
-      <p>You have successfully redeemed your points. Keep up the great work!</p>
+      <p>You have successfully redeemed your <span id="redeemed-points">0</span> points. Keep up the great work!</p>
       <p id="selectedItems"></p> <!-- Display selected items here -->
       <p id="dateTime"></p> <!-- Display the date and time here -->
       <button id="closeBtn">Close</button>
@@ -127,13 +127,21 @@
       const formattedDate = currentDate.toLocaleString(); // Format it to a readable string
 
       // Display the date and time
-      dateTimeDisplay.textContent = `Redeemed on: ${formattedDate}`;
+      dateTimeDisplay.textContent =  `Redeemed on: ${formattedDate}`  ;
 
       // Redirect to "huh.html" when the Close button is clicked
       closeBtn.addEventListener("click", () => {
         window.location.href = "monitor.html";
       });
     });
+      // Retrieve the redeemed points from sessionStorage
+      window.onload = () => {
+        const redeemedPoints = sessionStorage.getItem('redeemedPoints');
+        if (redeemedPoints) {
+            document.getElementById('redeemed-points').textContent = redeemedPoints;
+        }
+    };
   </script>
 </body>
 </html>
+
