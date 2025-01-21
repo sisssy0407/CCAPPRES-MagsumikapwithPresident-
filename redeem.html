@@ -121,27 +121,32 @@
     document.addEventListener("DOMContentLoaded", () => {
       const closeBtn = document.getElementById("closeBtn");
       const dateTimeDisplay = document.getElementById("dateTime");
+      const selectedItemsDisplay = document.getElementById("selectedItems");
 
       // Get the current date and time
       const currentDate = new Date();
       const formattedDate = currentDate.toLocaleString(); // Format it to a readable string
 
       // Display the date and time
-      dateTimeDisplay.textContent =  `Redeemed on: ${formattedDate}`  ;
+      dateTimeDisplay.textContent = `Redeemed on: ${formattedDate}`;
 
-      // Redirect to "huh.html" when the Close button is clicked
+      // Redirect to "monitor.html" when the Close button is clicked
       closeBtn.addEventListener("click", () => {
         window.location.href = "monitor.html";
       });
+
+      // Retrieve the redeemed points and selected items from sessionStorage
+      const redeemedPoints = sessionStorage.getItem('redeemedPoints');
+      const selectedItems = sessionStorage.getItem('selectedItems');
+
+      if (redeemedPoints) {
+          document.getElementById('redeemed-points').textContent = redeemedPoints;
+      }
+
+      if (selectedItems) {
+          selectedItemsDisplay.textContent = `Selected items: ${selectedItems}`;
+      }
     });
-      // Retrieve the redeemed points from sessionStorage
-      window.onload = () => {
-        const redeemedPoints = sessionStorage.getItem('redeemedPoints');
-        if (redeemedPoints) {
-            document.getElementById('redeemed-points').textContent = redeemedPoints;
-        }
-    };
   </script>
 </body>
 </html>
-
