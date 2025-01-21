@@ -253,24 +253,27 @@
             });
         };
 
-        // Redeem points function
-        const redeemPoints = (section) => {
-            const pointsElement = document.getElementById(`points-${section}`);
-            let points = parseInt(pointsElement.textContent);
-            const pointsToRedeem = parseInt(document.getElementById(`input-${section}`).value);
+         // Redeem points function
+    const redeemPoints = (section) => {
+        const pointsElement = document.getElementById(`points-${section}`);
+        let points = parseInt(pointsElement.textContent);
+        const pointsToRedeem = parseInt(document.getElementById(`input-${section}`).value);
+        
+        if (pointsToRedeem && points >= pointsToRedeem) {
+            points -= pointsToRedeem;
+            pointsElement.textContent = points;
+            // Save updated points to local storage
+            localStorage.setItem(`points-${section}`, points);
             
-            if (pointsToRedeem && points >= pointsToRedeem) {
-                points -= pointsToRedeem;
-                pointsElement.textContent = points;
-                // Save updated points to local storage
-                localStorage.setItem(`points-${section}`, points);
-                
-                // Redirect to redeem.html after redeeming
-                window.location.href = "redeem.html";  // Redirects to redeem.html
-            } else {
-                alert("Not enough points or invalid input.");
-            }
-        };
+            // Save redeemed points to sessionStorage
+            sessionStorage.setItem('redeemedPoints', pointsToRedeem);
+
+            // Redirect to redeem.html after redeeming
+            window.location.href = "redeem.html";  // Redirects to redeem.html
+        } else {
+            alert("Not enough points or invalid input.");
+        }
+    };
     </script>
 </body>
 </html>
