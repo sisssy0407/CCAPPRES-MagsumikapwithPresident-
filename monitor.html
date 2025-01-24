@@ -250,30 +250,46 @@
                 if (storedPoints) {
                     document.getElementById(`points-${section}`).textContent = storedPoints;
                 }
+                // Update the redeem button's disabled state based on points
+                updateRedeemButton(section);
             });
         };
 
-         // Redeem points function
-    const redeemPoints = (section) => {
-        const pointsElement = document.getElementById(`points-${section}`);
-        let points = parseInt(pointsElement.textContent);
-        const pointsToRedeem = parseInt(document.getElementById(`input-${section}`).value);
-        
-        if (pointsToRedeem && points >= pointsToRedeem) {
-            points -= pointsToRedeem;
-            pointsElement.textContent = points;
-            // Save updated points to local storage
-            localStorage.setItem(`points-${section}`, points);
-            
-            // Save redeemed points to sessionStorage
-            sessionStorage.setItem('redeemedPoints', pointsToRedeem);
+        // Update redeem button state based on points
+        const updateRedeemButton = (section) => {
+            const pointsElement = document.getElementById(`points-${section}`);
+            let points = parseInt(pointsElement.textContent);
+            const redeemButton = document.getElementById(`redeem-${section}`);
 
-            // Redirect to redeem.html after redeeming
-            window.location.href = "redeem.html";  // Redirects to redeem.html
-        } else {
-            alert("Not enough points or invalid input.");
-        }
-    };
+            // Enable redeem button only if points are greater than or equal to 1000
+            if (points >= 1000) {
+                redeemButton.disabled = false;
+            } else {
+                redeemButton.disabled = true;
+            }
+        };
+
+        // Redeem points function
+        const redeemPoints = (section) => {
+            const pointsElement = document.getElementById(`points-${section}`);
+            let points = parseInt(pointsElement.textContent);
+            const pointsToRedeem = parseInt(document.getElementById(`input-${section}`).value);
+            
+            if (pointsToRedeem && points >= pointsToRedeem) {
+                points -= pointsToRedeem;
+                pointsElement.textContent = points;
+                // Save updated points to local storage
+                localStorage.setItem(`points-${section}`, points);
+                
+                // Save redeemed points to sessionStorage
+                sessionStorage.setItem('redeemedPoints', pointsToRedeem);
+
+                // Redirect to redeem.html after redeeming
+                window.location.href = "redeem.html";  // Redirects to redeem.html
+            } else {
+                alert("Not enough points or invalid input.");
+            }
+        };
     </script>
 </body>
 </html>
